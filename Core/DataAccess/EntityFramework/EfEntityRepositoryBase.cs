@@ -56,8 +56,11 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                var removedEntity = context.Entry(filter);
-                removedEntity.State = EntityState.Deleted;
+                var entitiesToRemove = context.Set<TEntity>().Where(filter).ToList();
+                foreach (var entity in entitiesToRemove)
+                {
+                    context.Entry(entity).State = EntityState.Deleted;
+                }
                 context.SaveChanges();
             }
         }
