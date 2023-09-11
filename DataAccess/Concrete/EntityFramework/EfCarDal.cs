@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -18,12 +19,18 @@ namespace DataAccess.Concrete.EntityFramework
 
         public Car GetCarByBrandId(Expression<Func<Car, bool>> filter)
         {
-            throw new NotImplementedException();
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                return context.Set<Car>().SingleOrDefault(filter);
+            }
         }
 
         public Car GetCarByColorId(Expression<Func<Car, bool>> filter)
         {
-            throw new NotImplementedException();
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                return context.Set<Car>().SingleOrDefault(filter);
+            }
         }
 
         public List<CarDetailsDto> GetCarDetails()
